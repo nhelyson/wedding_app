@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Don-Alpha &amp; Serge — Mariage le 14 Novembre 2026</title>
+  <meta name="description" content="Une histoire d'amour transformée en expérience numérique. Célébration du mariage de Don-Alpha &amp; Serge le Samedi 14 Novembre 2026 à Brazzaville, République du Congo.">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: {
+              ivory: '#faf7f2',
+              sand: '#f3ede2',
+              cream: '#f9f5ed',
+              white: '#ffffff'
+            },
+            gold: {
+              warm: '#c5a880',
+              foil: '#d4af37',
+              deep: '#96774e'
+            },
+            ink: {
+              primary: '#201a16',
+              secondary: '#4a3e35',
+              muted: '#7d7065'
+            }
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+            script: ['Great Vibes', 'cursive'],
+            classic: ['Cinzel', 'serif'],
+            sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Haute Papeterie & Direction Éditoriale CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-[#faf7f2] text-[#201a16] antialiased selection:bg-[#c5a880] selection:text-white relative">
+
+  <!-- Ambient Golden Dust Canvas -->
+  <canvas id="petals-canvas"></canvas>
+
+  <!-- Ambient Audio Chime Toggle -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <button id="btn-audio-toggle" title="Atmosphère musicale" class="bg-white/95 backdrop-blur-md text-stone-700 p-4 rounded-full shadow-lg border border-[#c5a880]/40 hover:border-[#c5a880] transition duration-300 flex items-center justify-center group">
+      <svg id="icon-play" class="w-5 h-5 text-[#c5a880] group-hover:scale-110 transition" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+      </svg>
+      <svg id="icon-pause" class="w-5 h-5 text-stone-700 hidden" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- NAVIGATION DISCRÈTE & ÉLÉGANTE -->
+  <header id="main-header" class="fixed top-0 left-0 w-full z-40 bg-[#faf7f2]/95 backdrop-blur-md border-b border-[#e2d6c4]/60 transition duration-300">
+    <div class="w-full px-5 sm:px-8 lg:px-12 h-20 sm:h-22 flex items-center justify-between">
+      
+      <a id="header-brand" href="#accueil" class="group flex items-center gap-3.5">
+        <span class="w-8 h-8 rounded-full border border-[#c5a880]/50 flex items-center justify-center text-xs font-classic text-[#96774e] bg-white shadow-xs">
+          DAS
+        </span>
+        <span class="font-script text-2xl sm:text-3xl text-[#201a16] group-hover:text-[#96774e] transition">
+          Don-Alpha &amp; Serge
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center space-x-8 text-xs uppercase tracking-[0.2em] font-medium text-stone-700">
+        <a href="#les-maries" class="hover:text-[#96774e] transition">Notre Histoire</a>
+        <a href="#grand-jour" class="hover:text-[#96774e] transition">Le Grand Jour</a>
+        <a href="#programme" class="hover:text-[#96774e] transition">Programme</a>
+        <a href="#notre-message" class="hover:text-[#96774e] transition">Message d'Amour</a>
+        <a href="#lieux" class="hover:text-[#96774e] transition">Lieux</a>
+        <a href="#presence" class="btn-couture-primary px-6 py-2.5 rounded-full text-[11px] tracking-[0.18em] font-semibold">
+          Confirmer ma présence
+        </a>
+      </nav>
+
+      <div class="lg:hidden flex items-center gap-3">
+        <a href="#presence" class="btn-couture-primary px-4 py-2 rounded-full text-[11px] font-medium tracking-wider">
+          Présence
+        </a>
+        <button id="btn-mobile-menu" aria-label="Menu" class="p-2 text-stone-800 hover:text-[#96774e] focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu-drawer" class="lg:hidden hidden bg-[#faf7f2]/98 border-b border-[#e2d6c4] px-6 py-6 shadow-md transition-all duration-300">
+      <nav class="flex flex-col space-y-4 text-xs uppercase tracking-[0.2em] font-medium text-stone-700">
+        <a href="#les-maries" class="mobile-nav-link py-2 border-b border-stone-200/50 hover:text-[#96774e] transition">Notre Histoire</a>
+        <a href="#grand-jour" class="mobile-nav-link py-2 border-b border-stone-200/50 hover:text-[#96774e] transition">Le Grand Jour</a>
+        <a href="#programme" class="mobile-nav-link py-2 border-b border-stone-200/50 hover:text-[#96774e] transition">Programme</a>
+        <a href="#notre-message" class="mobile-nav-link py-2 border-b border-stone-200/50 hover:text-[#96774e] transition">Message d'Amour</a>
+        <a href="#lieux" class="mobile-nav-link py-2 border-b border-stone-200/50 hover:text-[#96774e] transition">Lieux</a>
+        <a href="#presence" class="mobile-nav-link py-2 text-[#96774e] font-semibold transition">Confirmer ma présence</a>
+      </nav>
+    </div>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================ -->
+    <!-- 01 — HERO : CÉLÉBRATION D'UNION & NOMS DES MARIÉS           -->
+    <!-- ============================================================ -->
+    <section id="accueil" class="min-h-screen pt-28 sm:pt-32 md:pt-36 pb-20 flex flex-col items-center justify-start relative overflow-hidden bg-gradient-to-b from-[#faf7f2] via-[#f7f2ea] to-[#f2ece1]">
+      <div class="max-w-4xl mx-auto px-6 text-center relative z-20 w-full flex flex-col items-center">
+        
+        <!-- Titre discret d'introduction -->
+        <div class="reveal-editorial mb-4">
+          <span class="font-classic text-xs uppercase tracking-[0.35em] text-[#96774e] font-semibold">
+            Célébration d'Union
+          </span>
+        </div>
+
+        <!-- Titre monumental avec les deux prénoms -->
+        <h1 class="reveal-editorial font-script text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-[#201a16] mb-4 sm:mb-5 leading-tight">
+          Don-Alpha &amp; Serge
+        </h1>
+
+        <!-- Poésie expressive du couple -->
+        <p class="reveal-editorial font-serif-luxury italic text-xl sm:text-2xl md:text-3xl text-[#3c322b] font-light max-w-2xl mx-auto mb-4 sm:mb-6 leading-relaxed">
+          « Deux histoires, un seul chemin... »
+        </p>
+
+        <!-- Date et lieu solennels -->
+        <p class="reveal-editorial font-classic text-xs sm:text-sm uppercase tracking-[0.3em] text-[#7d7065] mb-8 sm:mb-10 font-medium">
+          Samedi 14 Novembre 2026 • Brazzaville
+        </p>
+
+        <!-- Compte à rebours éditorial avec séparateurs délicats -->
+        <div class="reveal-editorial w-full max-w-lg mx-auto mb-12 sm:mb-14">
+          <div class="grid grid-cols-4 gap-3 sm:gap-6 border-y border-[#c5a880]/40 py-4 sm:py-5">
+            <div class="text-center">
+              <span id="days" class="font-serif-luxury text-3xl sm:text-5xl font-light text-[#201a16] block leading-none">00</span>
+              <span class="text-[10px] uppercase tracking-[0.2em] text-[#96774e] font-semibold mt-1 block">Jours</span>
+            </div>
+            <div class="text-center border-l border-[#c5a880]/30">
+              <span id="hours" class="font-serif-luxury text-3xl sm:text-5xl font-light text-[#201a16] block leading-none">00</span>
+              <span class="text-[10px] uppercase tracking-[0.2em] text-[#96774e] font-semibold mt-1 block">Heures</span>
+            </div>
+            <div class="text-center border-l border-[#c5a880]/30">
+              <span id="minutes" class="font-serif-luxury text-3xl sm:text-5xl font-light text-[#201a16] block leading-none">00</span>
+              <span class="text-[10px] uppercase tracking-[0.2em] text-[#96774e] font-semibold mt-1 block">Minutes</span>
+            </div>
+            <div class="text-center border-l border-[#c5a880]/30">
+              <span id="seconds" class="font-serif-luxury text-3xl sm:text-5xl font-light text-[#c5a880] block leading-none">00</span>
+              <span class="text-[10px] uppercase tracking-[0.2em] text-[#96774e] font-semibold mt-1 block">Secondes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Appel à la confirmation de présence (placé juste après le compte à rebours) -->
+        <div class="reveal-editorial flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+          <a href="#presence" class="btn-couture-primary px-9 py-4 rounded-full text-xs uppercase tracking-[0.22em] font-semibold shadow-xl">
+            Confirmer ma présence
+          </a>
+        </div>
+
+        <!-- Scroll Cue discret -->
+        <div class="reveal-editorial flex justify-center">
+          <a href="#les-maries" class="scroll-cue group" title="Découvrir leur univers">
+            <span class="font-classic text-[10px] uppercase tracking-[0.25em] text-[#7d7065] group-hover:text-[#96774e] transition">
+              Découvrir leur univers
+            </span>
+            <div class="scroll-cue-line h-8 sm:h-10"></div>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 02 — LES MARIÉS & LEUR HISTOIRE (RÉCIT ÉDITORIAL D'ART)      -->
+    <!-- ============================================================ -->
+    <section id="les-maries" class="py-28 md:py-36 bg-[#faf7f2] relative">
+      <div class="max-w-6xl mx-auto px-6 sm:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          <!-- Composition asymétrique : portrait et médaillon d'art -->
+          <div class="lg:col-span-6 reveal-left">
+            <div class="relative mx-auto max-w-md">
+              <div class="editorial-portrait-frame rounded-2xl">
+                <div class="overflow-hidden rounded-xl bg-stone-100 aspect-[4/5]">
+                  <img 
+                    src="/images/photo_maries_ultra_HD_carree.jpg" 
+                    alt="Don-Alpha et Serge" 
+                    class="w-full h-full object-cover object-top filter contrast-[1.02] hover:scale-105 transition duration-1000"
+                  />
+                </div>
+              </div>
+              
+              <!-- Médaillon rond secondaire superposé légèrement -->
+              <div class="absolute -bottom-8 -left-6 sm:-bottom-10 sm:-left-8 w-32 h-32 sm:w-40 sm:h-40 rounded-full p-2 bg-white shadow-2xl border border-[#c5a880]/50 hidden sm:block">
+                <div class="w-full h-full rounded-full overflow-hidden">
+                  <img src="/images/photo_maries_ronde_HD.png" alt="Médaillon des mariés" class="w-full h-full object-contain">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Texte éditorial avec grands espaces -->
+          <div class="lg:col-span-6 reveal-right space-y-6 lg:pl-4">
+            
+            <span class="font-classic text-xs uppercase tracking-[0.3em] text-[#96774e] font-semibold block">
+              Notre Alliance
+            </span>
+
+            <h2 class="font-serif-luxury text-4xl sm:text-5xl lg:text-6xl text-[#201a16] leading-tight">
+              Don-Alpha &amp; Serge
+            </h2>
+
+            <div class="gold-hairline w-20"></div>
+
+            <p class="font-serif-luxury italic text-xl sm:text-2xl text-[#3c322b] leading-relaxed">
+              « Une rencontre, des regards partagés, puis l'évidence d'une vie à construire côte à côte. »
+            </p>
+
+            <p class="text-stone-700 font-light text-base sm:text-lg leading-relaxed">
+              Chaque histoire d'amour possède sa propre musique. La nôtre s'est écrite avec la douceur des conversations sans fin, la complicité des rires et cette certitude sereine que nos pas étaient faits pour marcher ensemble.
+            </p>
+
+            <p class="text-stone-700 font-light text-base sm:text-lg leading-relaxed">
+              Entourés de nos familles et de ceux qui ont vu naître et grandir notre amour, nous célébrerons notre union le Samedi 14 Novembre 2026 à Brazzaville.
+            </p>
+
+            <!-- Signatures manuscrites -->
+            <div class="pt-6 flex items-center gap-8 border-t border-[#c5a880]/30">
+              <div>
+                <span class="block font-script text-3xl text-[#96774e]">Don-Alpha</span>
+                <span class="text-[10px] uppercase tracking-[0.2em] text-stone-500 font-medium">La Mariée</span>
+              </div>
+              <span class="text-[#c5a880] text-2xl font-serif-luxury">&amp;</span>
+              <div>
+                <span class="block font-script text-3xl text-[#96774e]">Serge</span>
+                <span class="text-[10px] uppercase tracking-[0.2em] text-stone-500 font-medium">Le Marié</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 03 — LE GRAND JOUR : TYPOGRAPHIE SOLENNELLE D'IMPACT         -->
+    <!-- ============================================================ -->
+    <section id="grand-jour" class="py-28 md:py-36 bg-[#f3ede2] relative">
+      <div class="max-w-4xl mx-auto px-6 sm:px-8 text-center">
+        
+        <div class="reveal-editorial mb-16">
+          <span class="font-classic text-xs uppercase tracking-[0.35em] text-[#96774e] font-semibold block mb-3">
+            Célébration Solennelle
+          </span>
+
+          <!-- Typographie monumentale de la date -->
+          <div class="py-6 border-y border-[#c5a880]/40 max-w-xl mx-auto">
+            <span class="font-serif-luxury text-7xl sm:text-8xl md:text-9xl text-[#201a16] font-light block leading-none">
+              14
+            </span>
+            <span class="font-classic text-sm sm:text-lg uppercase tracking-[0.4em] text-[#96774e] font-semibold block mt-3">
+              Novembre 2026
+            </span>
+            <span class="text-xs uppercase tracking-[0.3em] text-[#7d7065] block mt-1">
+              Brazzaville • République du Congo
+            </span>
+          </div>
+        </div>
+
+        <!-- Les deux moments cardinaux avec pureté typographique -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 text-left max-w-3xl mx-auto reveal-editorial">
+          
+          <div class="border-l-2 border-[#c5a880] pl-6 py-2 space-y-2">
+            <span class="font-classic text-xs uppercase tracking-[0.25em] text-[#96774e] font-semibold block">
+              10h00 Précise
+            </span>
+            <h3 class="font-serif-luxury text-2xl sm:text-3xl text-[#201a16]">
+              Célébration Civile
+            </h3>
+            <p class="text-stone-700 text-sm font-light leading-relaxed">
+              Mairie Centrale de Brazzaville.<br>Échange des consentements solennels et signature des registres officiels.
+            </p>
+          </div>
+
+          <div class="border-l-2 border-[#c5a880] pl-6 py-2 space-y-2">
+            <span class="font-classic text-xs uppercase tracking-[0.25em] text-[#96774e] font-semibold block">
+              Dès 15h40
+            </span>
+            <h3 class="font-serif-luxury text-2xl sm:text-3xl text-[#201a16]">
+              Réception Royale
+            </h3>
+            <p class="text-stone-700 text-sm font-light leading-relaxed">
+              Salle Aquarium — Palais des Congrès.<br>Accueil des invités, banquet gastronomique et bal d'honneur.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 04 — LE PROGRAMME DU MARIAGE : RYTHME & LIGNES FINES        -->
+    <!-- ============================================================ -->
+    <section id="programme" class="py-28 md:py-36 bg-[#faf7f2] relative">
+      <div class="max-w-4xl mx-auto px-6 sm:px-8">
+        
+        <div class="text-center reveal-editorial mb-20">
+          <span class="font-classic text-xs uppercase tracking-[0.3em] text-[#96774e] font-semibold block">
+            Déroulement
+          </span>
+          <h2 class="font-serif-luxury text-4xl sm:text-5xl text-[#201a16] mt-2">
+            Programme du Samedi 14 Novembre 2026
+          </h2>
+          <div class="gold-hairline w-24 mx-auto mt-4"></div>
+        </div>
+
+        <!-- Timeline éditoriale sans cartes lourdes -->
+        <div class="space-y-12 max-w-2xl mx-auto border-l border-[#c5a880]/50 pl-8 ml-4 sm:ml-auto">
+          
+          <!-- 10h00 -->
+          <div class="relative reveal-editorial">
+            <div class="absolute -left-[37px] top-1.5 w-3 h-3 rounded-full bg-[#c5a880] border-2 border-white shadow-xs"></div>
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
+              <h3 class="font-serif-luxury text-2xl font-bold text-[#201a16]">
+                Union Civile Solennelle
+              </h3>
+              <span class="font-serif-luxury text-xl font-bold text-[#96774e]">10h00</span>
+            </div>
+            <span class="font-classic text-xs text-[#7d7065] block mb-2 font-medium">Mairie Centrale de Brazzaville</span>
+            <p class="text-stone-700 text-sm font-light leading-relaxed">
+              Consentements des époux et signature des registres officiels en présence des familles.
+            </p>
+          </div>
+
+          <!-- 11h40 -->
+          <div class="relative reveal-editorial">
+            <div class="absolute -left-[37px] top-1.5 w-3 h-3 rounded-full bg-[#c5a880] border-2 border-white shadow-xs"></div>
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
+              <h3 class="font-serif-luxury text-2xl font-bold text-[#201a16]">
+                Séance Photo Souvenir
+              </h3>
+              <span class="font-serif-luxury text-xl font-bold text-[#96774e]">11h40</span>
+            </div>
+            <span class="font-classic text-xs text-[#7d7065] block mb-2 font-medium">Parvis de la Mairie Centrale</span>
+            <p class="text-stone-700 text-sm font-light leading-relaxed">
+              Photographies officielles et partages des premiers sourires avec Don-Alpha &amp; Serge.
+            </p>
+          </div>
+
+          <!-- 14h20 -->
+          <div class="relative reveal-editorial">
+            <div class="absolute -left-[37px] top-1.5 w-3 h-3 rounded-full bg-[#c5a880] border-2 border-white shadow-xs"></div>
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
+              <h3 class="font-serif-luxury text-2xl font-bold text-[#201a16]">
+                Tour de Ville du Cortège
+              </h3>
+              <span class="font-serif-luxury text-xl font-bold text-[#96774e]">14h20</span>
+            </div>
+            <span class="font-classic text-xs text-[#7d7065] block mb-2 font-medium">Capitale de Brazzaville</span>
+            <p class="text-stone-700 text-sm font-light leading-relaxed">
+              Cortège d'honneur et défilé à travers la ville avec la suite nuptiale et les convives.
+            </p>
+          </div>
+
+          <!-- 15h40 -->
+          <div class="relative reveal-editorial">
+            <div class="absolute -left-[37px] top-1.5 w-3 h-3 rounded-full bg-[#96774e] border-2 border-white shadow-xs"></div>
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
+              <h3 class="font-serif-luxury text-2xl font-bold text-[#201a16]">
+                Accueil des Convives &amp; Émargement
+              </h3>
+              <span class="font-serif-luxury text-xl font-bold text-[#96774e]">15h40</span>
+            </div>
+            <span class="font-classic text-xs text-[#7d7065] block mb-2 font-medium">Salle Aquarium — Palais des Congrès</span>
+            <p class="text-stone-700 text-sm font-light leading-relaxed">
+              Accueil et contrôle d'accès sur présentation du QR Code officiel d'invitation.
+            </p>
+          </div>
+
+          <!-- 16h10 -->
+          <div class="relative reveal-editorial">
+            <div class="absolute -left-[37px] top-1.5 w-3 h-3 rounded-full bg-[#96774e] border-2 border-white shadow-xs"></div>
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
+              <h3 class="font-serif-luxury text-2xl font-bold text-[#201a16]">
+                Banquet Royal &amp; Bal des Mariés
+              </h3>
+              <span class="font-serif-luxury text-xl font-bold text-[#96774e]">16h10 — Soirée</span>
+            </div>
+            <span class="font-classic text-xs text-[#7d7065] block mb-2 font-medium">Palais des Congrès</span>
+            <p class="text-stone-700 text-sm font-light leading-relaxed">
+              Entrée d'honneur, toast de bienvenue, banquet gastronomique, pièce montée et célébration dansante.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- NOTRE MESSAGE D'AMOUR                                         -->
+    <!-- ============================================================ -->
+    <section id="notre-message" class="py-28 md:py-36 bg-[#faf7f2] relative">
+      <div class="max-w-4xl mx-auto px-6 sm:px-8 text-center">
+        
+        <div class="reveal-editorial mb-14">
+          <span class="font-classic text-xs uppercase tracking-[0.3em] text-[#96774e] font-semibold block">
+            Quelques Mots de Nous
+          </span>
+          <h2 class="font-serif-luxury text-4xl sm:text-5xl text-[#201a16] mt-2">
+            Notre Message d'Amour
+          </h2>
+          <div class="gold-hairline w-24 mx-auto mt-4"></div>
+        </div>
+
+        <div class="reveal-editorial paper-sheet p-8 sm:p-14 rounded-3xl relative card-gold-frame max-w-2xl mx-auto shadow-sm text-center">
+          
+          <div class="space-y-6">
+            <h3 class="font-serif-luxury italic text-2xl sm:text-3xl md:text-4xl text-[#201a16] leading-snug">
+              « Deux âmes, un amour éternel. »
+            </h3>
+            
+            <p class="text-stone-700 font-light text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
+              Votre présence à nos côtés sera la plus belle note de bonheur pour sceller cette journée inoubliable.
+            </p>
+            
+            <p class="text-stone-700 font-light text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
+              Nous avons hâte de célébrer cet amour et d'écrire cette nouvelle page avec chacun d'entre vous !
+            </p>
+            
+            <div class="pt-6 border-t border-[#c5a880]/30 max-w-md mx-auto">
+              <span class="font-script text-4xl text-[#96774e] block mb-1">Don-Alpha &amp; Serge</span>
+              <span class="font-classic text-xs uppercase tracking-[0.25em] text-[#7d7065] font-medium">Samedi 14 Novembre 2026</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 07 — LIEUX & ACCÈS                                           -->
+    <!-- ============================================================ -->
+    <section id="lieux" class="py-24 bg-[#f3ede2]">
+      <div class="max-w-5xl mx-auto px-6 sm:px-8">
+        
+        <div class="text-center reveal-editorial mb-16">
+          <span class="font-classic text-xs uppercase tracking-[0.3em] text-[#96774e] font-semibold block">
+            Accès &amp; Célébration
+          </span>
+          <h2 class="font-serif-luxury text-4xl sm:text-5xl text-[#201a16] mt-2">
+            Lieux du Mariage
+          </h2>
+          <div class="gold-hairline w-24 mx-auto mt-4"></div>
+          <p class="text-stone-600 font-light text-sm mt-3">Brazzaville, République du Congo</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <div class="paper-sheet p-8 rounded-3xl reveal-left flex flex-col justify-between card-gold-frame">
+            <div>
+              <span class="text-xs uppercase tracking-[0.2em] text-[#96774e] font-semibold block mb-2 font-classic">10h00 • Matinée</span>
+              <h3 class="font-serif-luxury text-2xl font-bold text-[#201a16] mb-3">
+                Mairie Centrale de Brazzaville
+              </h3>
+              <p class="text-stone-600 text-sm leading-relaxed mb-6 font-light">
+                Cérémonie civile solennelle et séance photo avec les mariés. Accueil des invités dès 09h40.
+              </p>
+            </div>
+            <a href="https://maps.google.com/?q=Mairie+Centrale+Brazzaville+Congo" target="_blank" rel="noopener noreferrer" class="btn-couture-outline py-3 rounded-xl text-center text-xs uppercase tracking-wider font-semibold">
+              Itinéraire Google Maps ↗
+            </a>
+          </div>
+
+          <div class="paper-sheet p-8 rounded-3xl reveal-right flex flex-col justify-between card-gold-frame">
+            <div>
+              <span class="text-xs uppercase tracking-[0.2em] text-[#96774e] font-semibold block mb-2 font-classic">Dès 15h40 • Soirée</span>
+              <h3 class="font-serif-luxury text-2xl font-bold text-[#201a16] mb-3">
+                Salle Aquarium • Palais des Congrès
+              </h3>
+              <p class="text-stone-600 text-sm leading-relaxed mb-6 font-light">
+                Réception royale, banquet gastronomique et bal dansant. Présentez votre QR Code d'accès à l'accueil.
+              </p>
+            </div>
+            <a href="https://maps.google.com/?q=Palais+des+Congres+Brazzaville+Congo" target="_blank" rel="noopener noreferrer" class="btn-couture-primary py-3 rounded-xl text-center text-xs uppercase tracking-wider font-semibold">
+              Itinéraire Google Maps ↗
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 08 — CONFIRMATION DE PRÉSENCE                                -->
+    <!-- ============================================================ -->
+    <section id="presence" class="py-28 md:py-36 bg-[#faf7f2] relative">
+      <div class="max-w-3xl mx-auto px-6 sm:px-8">
+        
+        <div class="text-center reveal-editorial mb-14">
+          <span class="font-classic text-xs uppercase tracking-[0.3em] text-[#96774e] font-semibold block">
+            Votre Présence
+          </span>
+          <h2 class="font-serif-luxury text-4xl sm:text-5xl text-[#201a16] mt-2">
+            Confirmer ma présence
+          </h2>
+          <div class="gold-hairline w-24 mx-auto mt-4"></div>
+          <p class="font-serif-luxury italic text-stone-600 text-lg mt-3 max-w-lg mx-auto font-light">
+            Nous serions infiniment honorés de vous compter parmi nous. Votre invitation officielle personnalisée vous sera immédiatement remise.
+          </p>
+        </div>
+
+        <div class="reveal-editorial paper-sheet p-8 sm:p-12 rounded-3xl shadow-xl card-gold-frame">
+          
+          <form id="form-confirmation" class="space-y-6">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label for="conf-name" class="block text-xs uppercase tracking-wider text-stone-700 font-medium mb-2 font-classic">
+                  Nom de famille *
+                </label>
+                <input 
+                  type="text" 
+                  id="conf-name" 
+                  required 
+                  placeholder="Ex : Kouka"
+                  class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-1 focus:ring-[#c5a880] bg-white text-stone-800 text-sm"
+                />
+              </div>
+
+              <div>
+                <label for="conf-firstname" class="block text-xs uppercase tracking-wider text-stone-700 font-medium mb-2 font-classic">
+                  Prénom(s)
+                </label>
+                <input 
+                  type="text" 
+                  id="conf-firstname" 
+                  placeholder="Ex : Jean-Paul &amp; Grace"
+                  class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-1 focus:ring-[#c5a880] bg-white text-stone-800 text-sm"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label for="conf-phone" class="block text-xs uppercase tracking-wider text-stone-700 font-medium mb-2 font-classic">
+                  Téléphone ou WhatsApp
+                </label>
+                <input 
+                  type="tel" 
+                  id="conf-phone" 
+                  placeholder="Ex : +242 06 123 45 67"
+                  class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-1 focus:ring-[#c5a880] bg-white text-stone-800 text-sm"
+                />
+              </div>
+
+              <div>
+                <label for="conf-guests" class="block text-xs uppercase tracking-wider text-stone-700 font-medium mb-2 font-classic">
+                  Nombre de personnes
+                </label>
+                <select 
+                  id="conf-guests"
+                  class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-1 focus:ring-[#c5a880] bg-white text-stone-800 text-sm"
+                >
+                  <option value="1">1 Personne</option>
+                  <option value="2" selected>2 Personnes (Couple)</option>
+                  <option value="3">3 Personnes</option>
+                  <option value="4">4 Personnes</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Choix de participation -->
+            <div>
+              <span class="block text-xs uppercase tracking-wider text-stone-700 font-medium mb-3 font-classic">
+                Votre confirmation *
+              </span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <label class="flex items-center gap-3 p-4 rounded-xl border border-stone-200 cursor-pointer hover:bg-stone-50 transition bg-white has-[:checked]:border-[#c5a880] has-[:checked]:bg-[#faf7f2]">
+                  <input type="radio" name="conf-attendance" value="yes" checked class="text-[#c5a880] focus:ring-[#c5a880]">
+                  <span class="text-sm font-medium text-stone-800">Je serai présent(e) avec joie</span>
+                </label>
+                <label class="flex items-center gap-3 p-4 rounded-xl border border-stone-200 cursor-pointer hover:bg-stone-50 transition bg-white has-[:checked]:border-stone-400">
+                  <input type="radio" name="conf-attendance" value="no" class="text-stone-400 focus:ring-stone-400">
+                  <span class="text-sm font-medium text-stone-600">Avec regret, je serai absent(e)</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Moments de présence -->
+            <div class="pt-2">
+              <span class="block text-xs uppercase tracking-wider text-stone-700 font-medium mb-3 font-classic">
+                Moments de célébration
+              </span>
+              <div class="flex flex-col sm:flex-row gap-4 text-sm text-stone-700">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" id="conf-ceremony" checked class="rounded text-[#c5a880] focus:ring-[#c5a880]">
+                  <span>Cérémonie Civile (Mairie Centrale)</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" id="conf-reception" checked class="rounded text-[#c5a880] focus:ring-[#c5a880]">
+                  <span>Réception &amp; Banquet (Palais des Congrès)</span>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label for="conf-diet" class="block text-xs uppercase tracking-wider text-stone-700 font-medium mb-2 font-classic">
+                Précision utile ou régime particulier (optionnel)
+              </label>
+              <input 
+                type="text" 
+                id="conf-diet" 
+                placeholder="Ex : Végétarien, sans poisson..."
+                class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-1 focus:ring-[#c5a880] bg-white text-stone-800 text-sm"
+              />
+            </div>
+
+            <div>
+              <label for="conf-message" class="block text-xs uppercase tracking-wider text-stone-700 font-medium mb-2 font-classic">
+                Votre mot doux pour Don-Alpha &amp; Serge
+              </label>
+              <textarea 
+                id="conf-message" 
+                rows="3" 
+                placeholder="Vos vœux et félicitations pour les mariés..."
+                class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-1 focus:ring-[#c5a880] bg-white text-stone-800 text-sm resize-none"
+              ></textarea>
+            </div>
+
+            <button 
+              type="submit" 
+              id="btn-submit-confirmation"
+              class="w-full btn-couture-primary py-4 rounded-xl text-xs uppercase tracking-[0.2em] font-semibold transition"
+            >
+              Confirmer ma présence
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- INVITATION PERSONNALISÉE (SORTIE APRÈS CONFIRMATION)         -->
+    <!-- ============================================================ -->
+    <section id="section-invitation-personnelle" class="py-24 md:py-32 bg-[#f3ede2] relative hidden">
+      <div class="max-w-4xl mx-auto px-6 sm:px-8">
+        
+        <div class="text-center mb-12">
+          <span class="font-classic text-xs uppercase tracking-[0.3em] text-[#96774e] font-semibold block mb-2">
+            Présence Enregistrée
+          </span>
+          <h2 class="font-serif-luxury text-4xl sm:text-5xl text-[#201a16]">
+            Votre invitation personnalisée est prête
+          </h2>
+          <div class="gold-hairline w-24 mx-auto mt-4"></div>
+          <p class="font-serif-luxury italic text-stone-600 text-xl mt-3">
+            Bienvenue, <span id="personal-greeting-name" class="font-script text-[#96774e] text-3xl"></span>. Nous sommes infiniment honorés de vous compter parmi nous.
+          </p>
+        </div>
+
+        <!-- Le Carton d'Invitation Nominatif -->
+        <div class="paper-sheet p-8 sm:p-14 rounded-3xl text-[#201a16] shadow-xl relative card-gold-frame text-center mb-10">
+          
+          <div class="monogram-signature mb-4">
+            <span class="font-script text-2xl text-[#96774e]">DAS</span>
+          </div>
+
+          <span class="font-classic text-xs uppercase tracking-[0.3em] text-[#96774e] font-semibold block mb-2">
+            Invitation de Mariage
+          </span>
+
+          <h3 class="font-script text-5xl sm:text-6xl text-[#201a16] py-2">
+            Don-Alpha &amp; Serge
+          </h3>
+
+          <p class="font-serif-luxury italic text-stone-600 text-lg mb-6 font-light">
+            « Deux histoires, un seul chemin... — Samedi 14 Novembre 2026 »
+          </p>
+
+          <!-- Dédicace nominative -->
+          <div class="py-4 px-6 my-4 border-y border-[#c5a880]/50 max-w-md mx-auto bg-[#faf7f2]/90 rounded-xl">
+            <span class="text-[10px] uppercase tracking-widest text-[#96774e] block font-medium">Invité d'Honneur</span>
+            <span id="personal-card-name" class="font-serif-luxury text-2xl sm:text-3xl font-bold text-stone-900 block italic py-1">
+              [Votre Nom]
+            </span>
+            <span id="personal-places-count" class="text-xs text-stone-600 block">
+              2 Places réservées
+            </span>
+          </div>
+
+          <!-- QR Code Officiel d'accès -->
+          <div class="my-6 flex flex-col items-center">
+            <div class="p-3 bg-white rounded-2xl border border-stone-200 shadow-sm inline-block mb-3">
+              <img id="personal-qr-image" src="" alt="QR Code officiel d'accès" class="w-40 h-40 object-contain">
+            </div>
+            
+            <div class="text-xs font-classic tracking-widest text-[#96774e] font-semibold">
+              IDENTIFIANT : <span id="personal-guest-id">INV-000000</span>
+            </div>
+            
+            <span class="text-xs text-stone-500 mt-2 font-light max-w-sm">
+              Présentez ce QR Code ou votre document PDF à l'accueil de la Salle Aquarium (Palais des Congrès).
+            </span>
+          </div>
+
+        </div>
+
+        <!-- Boutons d'Action : Téléchargement PDF et Impression -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
+          <a id="btn-download-pdf" href="#" target="_blank" class="btn-couture-primary px-8 py-4 rounded-full text-xs uppercase tracking-[0.2em] font-semibold w-full sm:w-auto shadow-xl">
+            <span>Télécharger mon invitation (PDF)</span>
+            <span>📄</span>
+          </a>
+          <button onclick="window.print()" class="btn-couture-outline px-8 py-4 rounded-full text-xs uppercase tracking-[0.2em] font-semibold w-full sm:w-auto">
+            <span>Imprimer</span>
+            <span>🖨️</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 09 — LE LIVRE D'OR DES MARIÉS                                -->
+    <!-- ============================================================ -->
+    <section id="livre-dor" class="py-24 bg-[#faf7f2]">
+      <div class="max-w-5xl mx-auto px-6 sm:px-8">
+        
+        <div class="text-center reveal-editorial mb-16">
+          <span class="font-classic text-xs uppercase tracking-[0.3em] text-[#96774e] font-semibold block">
+            Témoignages &amp; Félicitations
+          </span>
+          <h2 class="font-serif-luxury text-4xl sm:text-5xl text-[#201a16] mt-2">
+            Le Livre d'Or des Mariés
+          </h2>
+          <div class="gold-hairline w-24 mx-auto mt-4"></div>
+          <p class="font-serif-luxury italic text-stone-600 text-lg mt-3">
+            Déposez vos vœux et félicitations pour Don-Alpha &amp; Serge
+          </p>
+        </div>
+
+        <div class="reveal-editorial max-w-xl mx-auto mb-16 paper-sheet p-6 sm:p-8 rounded-3xl card-gold-frame">
+          <form id="form-wishes" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input 
+                type="text" 
+                id="wish-name" 
+                required 
+                placeholder="Votre nom"
+                class="px-4 py-2.5 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-1 focus:ring-[#c5a880]"
+              />
+              <input 
+                type="text" 
+                id="wish-relation" 
+                placeholder="Lien (ex : Famille, Ami...)"
+                class="px-4 py-2.5 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-1 focus:ring-[#c5a880]"
+              />
+            </div>
+            <textarea 
+              id="wish-message" 
+              required 
+              rows="3" 
+              placeholder="Votre mot doux pour Don-Alpha &amp; Serge..."
+              class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-1 focus:ring-[#c5a880] resize-none"
+            ></textarea>
+            <div class="text-center">
+              <button type="submit" class="btn-couture-primary px-7 py-3 rounded-full text-xs uppercase tracking-[0.15em] font-semibold">
+                Publier mes vœux 💌
+              </button>
+            </div>
+            <div id="wish-feedback" class="hidden text-center text-xs text-emerald-700 bg-emerald-50 py-2.5 rounded-xl border border-emerald-200">
+              Votre vœu a été partagé avec les mariés. Merci du fond du cœur.
+            </div>
+          </form>
+        </div>
+
+        <div id="wishes-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Dynamique via app.js -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIED DE PAGE HAUTE COUTURE -->
+  <footer class="bg-[#1b1512] text-stone-400 py-16 border-t border-[#c5a880]/20">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      
+      <span class="font-script text-4xl sm:text-5xl text-[#d4af37] block mb-2">
+        Don-Alpha &amp; Serge
+      </span>
+
+      <p class="font-serif-luxury italic text-lg text-stone-300 mb-6 font-light">
+        « Deux histoires, un seul chemin... »
+      </p>
+
+      <div class="gold-hairline-dark w-16 mx-auto mb-6"></div>
+
+      <p class="font-classic text-xs uppercase tracking-[0.25em] text-stone-500 mb-4 font-light">
+        Samedi 14 Novembre 2026 • Brazzaville, Congo
+      </p>
+
+      <div class="pt-6 border-t border-stone-800 flex justify-between items-center text-[11px] text-stone-500">
+        <span>© 2026 Mariage Don-Alpha &amp; Serge</span>
+        <a href="/admin" class="hover:text-[#c5a880] transition underline underline-offset-4">
+          Espace Organisation
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Application JS -->
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "wedding-donalpha-serge",
+  "version": "1.0.0",
+  "description": "Site officiel de mariage Don-Alpha & Serge - 14 Novembre 2026",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "qrcode": "^1.5.4",
+    "mongoose": "^9.11.1",
+    "pdfkit": "^0.20.2"
+  }
+}

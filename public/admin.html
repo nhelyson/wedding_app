@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organisation &amp; Émargement — Mariage Don-Alpha &amp; Serge</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/admin.css">
+
+  <!-- HTML5 QR Code Scanner Library -->
+  <script src="/js/html5-qrcode.min.js"></script>
+
+  <style>
+    @media print {
+      header, #btn-open-scanner, #btn-download-csv, #btn-print-list, #btn-logout-desktop, #btn-logout, .filter-tab, #search-input, .grid, th:last-child, td:last-child, #checkin-modal, #login-modal, .no-print {
+        display: none !important;
+      }
+      body {
+        background: white !important;
+        color: black !important;
+        font-size: 11pt;
+      }
+      .print-header {
+        display: block !important;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #96774e;
+      }
+      table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+      }
+      th, td {
+        border: 1px solid #ddd !important;
+        padding: 6px 10px !important;
+      }
+    }
+    .print-header {
+      display: none;
+    }
+  </style>
+
+</head>
+<body class="bg-[#f7f5f0] text-stone-900 min-h-screen">
+
+  <!-- TOP BAR RESPONSIVE -->
+  <header class="bg-white border-b border-stone-200/80 sticky top-0 z-30 shadow-xs">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-0 sm:h-20 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4">
+      
+      <!-- Brand & Mobile Logout Row -->
+      <div class="flex items-center justify-between w-full sm:w-auto">
+        <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+          <a href="/" class="shrink-0 text-xs uppercase tracking-widest text-[#96774e] font-semibold hover:underline flex items-center gap-1" title="Retour à la page d'accueil">
+            <span>←</span> <span class="hidden sm:inline">Retour au site</span><span class="sm:hidden">Site</span>
+          </a>
+          <span class="text-stone-300">|</span>
+          <h1 class="font-serif-luxury font-bold text-base sm:text-xl text-stone-900 truncate">
+            Protocole &amp; Émargement
+          </h1>
+        </div>
+
+        <button id="btn-logout" class="sm:hidden shrink-0 text-xs text-stone-500 hover:text-stone-800 font-medium px-2.5 py-1.5 rounded-lg bg-stone-100 border border-stone-200 transition">
+          Déconnexion
+        </button>
+      </div>
+
+      <!-- Action Buttons Responsive Grid/Flex -->
+      <div class="grid grid-cols-3 sm:flex items-center gap-1.5 sm:gap-2.5 w-full sm:w-auto">
+        
+        <!-- Bouton Scanner : Pleine largeur sur mobile, prominent sur desktop -->
+        <button id="btn-open-scanner" class="col-span-3 sm:col-auto justify-center bg-stone-900 hover:bg-stone-800 text-white px-3.5 sm:px-5 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition shadow flex items-center gap-2">
+          <span>📷</span>
+          <span>Scanner QR Code</span>
+        </button>
+
+        <!-- Bouton Registre PDF Officiel -->
+        <button id="btn-download-pdf" class="col-span-2 sm:col-auto justify-center bg-[#8C6D3F] hover:bg-[#735730] text-white px-3 sm:px-4 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition shadow-md flex items-center gap-1.5" title="Télécharger le Registre Officiel de Prestige en PDF (A4 Paysage)">
+          <span>📄</span>
+          <span class="sm:inline hidden">Registre PDF Officiel</span>
+          <span class="sm:hidden inline">Registre PDF</span>
+        </button>
+
+        <!-- Bouton Export Excel (CSV) -->
+        <button id="btn-download-csv" class="col-span-1 sm:col-auto justify-center bg-white hover:bg-stone-50 text-stone-800 border border-stone-300 px-2.5 sm:px-4 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition shadow-xs flex items-center gap-1.5" title="Exporter les données brutes sous Excel (CSV)">
+          <span>📊</span>
+          <span class="sm:inline hidden">Export Excel</span>
+          <span class="sm:hidden inline">Excel</span>
+        </button>
+
+        <!-- Bouton Déconnexion Desktop -->
+        <button id="btn-logout-desktop" class="hidden sm:inline-block text-xs text-stone-500 hover:text-stone-800 font-medium px-2.5 py-2">
+          Déconnexion
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
+    
+    <!-- STATS SUMMARY TILES -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-4 mb-6 sm:mb-8">
+      
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl border border-stone-200/70 shadow-xs">
+        <span class="text-[10px] sm:text-[11px] uppercase tracking-wider text-stone-500 font-medium block mb-1">Total Réponses</span>
+        <span id="stat-total-invites" class="font-serif-luxury text-2xl sm:text-3xl font-bold text-stone-900">0</span>
+      </div>
+
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl border border-emerald-200/60 shadow-xs bg-emerald-50/20">
+        <span class="text-[10px] sm:text-[11px] uppercase tracking-wider text-emerald-800 font-medium block mb-1">Confirmés</span>
+        <span id="stat-confirmed" class="font-serif-luxury text-2xl sm:text-3xl font-bold text-emerald-700">0</span>
+      </div>
+
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl border border-amber-200/60 shadow-xs bg-amber-50/20">
+        <span class="text-[10px] sm:text-[11px] uppercase tracking-wider text-amber-800 font-medium block mb-1">En attente</span>
+        <span id="stat-pending" class="font-serif-luxury text-2xl sm:text-3xl font-bold text-amber-700">0</span>
+      </div>
+
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl border border-red-200/60 shadow-xs bg-red-50/20">
+        <span class="text-[10px] sm:text-[11px] uppercase tracking-wider text-red-800 font-medium block mb-1">Refus</span>
+        <span id="stat-declined" class="font-serif-luxury text-2xl sm:text-3xl font-bold text-red-700">0</span>
+      </div>
+
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl border border-[#c5a880]/50 shadow-xs bg-[#faf7f2]">
+        <span class="text-[10px] sm:text-[11px] uppercase tracking-wider text-[#96774e] font-medium block mb-1">Convives</span>
+        <span id="stat-people" class="font-serif-luxury text-2xl sm:text-3xl font-bold text-[#96774e]">0</span>
+      </div>
+
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl border border-blue-200/60 shadow-xs bg-blue-50/20">
+        <span class="text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-800 font-medium block mb-1">Émargés Jour J</span>
+        <span id="stat-checkedin" class="font-serif-luxury text-2xl sm:text-3xl font-bold text-blue-700">0</span>
+      </div>
+
+    </div>
+
+    
+    <!-- Entête imprimable officielle -->
+    <div class="print-header">
+      <h1 class="text-xl font-bold text-stone-900">Mariage Don-Alpha & Serge — 14 Novembre 2026</h1>
+      <p class="text-sm text-stone-600">Liste Officielle des Invités & Registre d'Émargement (Palais des Congrès — Salle Aquarium)</p>
+    </div>
+
+    <!-- CONTROLS & TABLE / CARDS -->
+    <div class="bg-white rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden">
+      
+      <!-- Filter and Search Header -->
+      <div class="p-4 sm:p-6 border-b border-stone-100 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
+        
+        <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar">
+          <button class="filter-tab shrink-0 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase transition bg-[#c5a880] text-white" data-filter="all">
+            Tous
+          </button>
+          <button class="filter-tab shrink-0 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase transition bg-white text-stone-700 hover:bg-stone-50 border border-stone-200/60" data-filter="confirmed">
+            Confirmés
+          </button>
+          <button class="filter-tab shrink-0 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase transition bg-white text-stone-700 hover:bg-stone-50 border border-stone-200/60" data-filter="pending">
+            En attente
+          </button>
+          <button class="filter-tab shrink-0 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase transition bg-white text-stone-700 hover:bg-stone-50 border border-stone-200/60" data-filter="declined">
+            Refus
+          </button>
+          <button class="filter-tab shrink-0 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase transition bg-white text-stone-700 hover:bg-stone-50 border border-stone-200/60" data-filter="checkedin">
+            Émargés
+          </button>
+        </div>
+
+        <div class="w-full md:w-80 relative">
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="Rechercher par nom, ID (INV-...)..." 
+            class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-[#c5a880] text-sm bg-stone-50/60"
+          />
+          <span class="absolute left-3 top-3 text-stone-400 text-sm">🔍</span>
+        </div>
+
+      </div>
+
+      <!-- Guests Table (Desktop) -->
+      <div class="hidden md:block overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-stone-50 text-[11px] uppercase tracking-wider text-stone-500 font-semibold border-b border-stone-200">
+              <th class="py-4 px-4">Invité / ID</th>
+              <th class="py-4 px-4">Contact</th>
+              <th class="py-4 px-4 text-center">Places</th>
+              <th class="py-4 px-4 text-center">Statut</th>
+              <th class="py-4 px-4 text-center">Jour J</th>
+              <th class="py-4 px-4 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="guests-table-body" class="divide-y divide-stone-100 text-sm">
+            <tr>
+              <td colspan="6" class="py-8 text-center text-stone-400 italic">Chargement des données...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Guests Card List (Mobile & Tablet) -->
+      <div id="guests-cards-container" class="block md:hidden divide-y divide-stone-100">
+        <div class="py-8 text-center text-stone-400 italic">Chargement des données...</div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- SCANNER QR CODE & ÉMARGEMENT MODAL (AVEC CAMÉRA DIRECTE) -->
+  <div id="checkin-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md hidden items-center justify-center p-3 sm:p-4">
+    <div class="bg-white rounded-2xl sm:rounded-3xl max-w-lg w-full p-4 sm:p-8 shadow-2xl border border-stone-200 relative max-h-[92vh] overflow-y-auto">
+      
+      <button id="btn-close-checkin" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700 text-lg font-bold w-8 h-8 flex items-center justify-center rounded-full bg-stone-100">
+        ✕
+      </button>
+
+      <div class="text-center mb-5 sm:mb-6 pr-6 sm:pr-0">
+        <span class="text-xs uppercase tracking-widest text-[#96774e] font-semibold">Accueil &amp; Émargement</span>
+        <h3 class="font-serif-luxury font-bold text-xl sm:text-2xl text-stone-900 mt-1">Scan du QR Code Invité</h3>
+      </div>
+
+      <!-- Mode Selector Tabs -->
+      <div class="flex border-b border-stone-200 mb-6 gap-6 text-xs uppercase tracking-wider font-semibold justify-center">
+        <button id="tab-camera-mode" class="pb-3 border-b-2 border-[#c5a880] text-[#c5a880]">
+          📷 Caméra en direct
+        </button>
+        <button id="tab-manual-mode" class="pb-3 text-stone-400 hover:text-stone-700">
+          ⌨ Saisie Manuelle
+        </button>
+      </div>
+
+      <!-- Section Caméra Live -->
+      <div id="camera-scanner-section" class="space-y-4">
+        <div id="qr-reader" class="rounded-2xl overflow-hidden border border-stone-200 bg-black"></div>
+        <p class="text-xs text-stone-500 text-center font-light">
+          Pointez la caméra vers le QR Code frappé sur le coffret de l'invité.
+        </p>
+      </div>
+
+      <!-- Section Saisie Manuelle -->
+      <div id="manual-scanner-section" class="space-y-4 hidden">
+        <form id="checkin-form">
+          <label class="block text-xs uppercase tracking-wider text-stone-600 font-semibold mb-2">
+            Identifiant du Coffret (ex: INV-8F3K29) ou Nom
+          </label>
+          <div class="flex gap-2">
+            <input 
+              type="text" 
+              id="checkin-query" 
+              placeholder="INV-8F3K29"
+              class="flex-1 px-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-[#c5a880] text-sm uppercase"
+            />
+            <button type="submit" class="bg-[#c5a880] hover:bg-[#96774e] text-white px-5 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider transition">
+              Vérifier
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Résultat du Scan / Fiche Invité -->
+      <div id="checkin-result" class="mt-6 hidden">
+        <!-- Rendered by admin.js -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL (AUTH) -->
+  <div id="login-modal" class="fixed inset-0 z-50 bg-stone-900/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl text-center border border-stone-200">
+      <div class="w-14 h-14 rounded-2xl bg-[#faf7f2] border border-[#c5a880]/40 flex items-center justify-center text-2xl mx-auto mb-4 text-[#96774e]">
+        🔐
+      </div>
+      <h3 class="font-serif-luxury font-bold text-2xl text-stone-900 mb-2">Espace Organisation</h3>
+      <p class="text-xs text-stone-500 mb-6 font-light">
+        Saisissez le code d'accès privé pour administrer les invités et émarger les coffrets.
+      </p>
+
+      <form id="login-form" class="space-y-4">
+        <input 
+          type="password" 
+          id="admin-password" 
+          required 
+          placeholder="Code d'accès organisateur..."
+          class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-[#c5a880] text-sm text-center"
+        />
+        <div id="login-error" class="hidden text-xs text-red-600 font-semibold"></div>
+        <button type="submit" class="w-full bg-stone-900 hover:bg-stone-800 text-white py-3 rounded-xl font-semibold text-xs uppercase tracking-wider transition">
+          Déverrouiller le Tableau de Bord
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin JS -->
+  <script src="/js/admin.js"></script>
+</body>
+</html>
